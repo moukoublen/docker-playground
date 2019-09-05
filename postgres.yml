@@ -6,9 +6,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=secure
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
-    #  - PGDATA=/var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: secure
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    #  PGDATA: /var/lib/postgresql/data/pgdata
     #volumes:
     #  - "$HOME/pgdata:/var/lib/postgresql/data/pgdata"

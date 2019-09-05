@@ -13,11 +13,11 @@ services:
     ports:
       - "9092:9092"
     environment:
-      - KAFKA_ADVERTISED_HOST_NAME=192.168.1.13
-      - KAFKA_ADVERTISED_PORT=9092
-      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
-      - "KAFKA_CREATE_TOPICS=topicone:16:1"
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-      - KAFKA_BROKER_ID=0
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.1.13
+      KAFKA_ADVERTISED_PORTL: 9092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_CREATE_TOPICS: topicone:16:1,topictwo:16:1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_BROKER_ID: 0
     restart: on-failure
 
