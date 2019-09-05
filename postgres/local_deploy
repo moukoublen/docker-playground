@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-docker-compose -f compose.yml down --volumes || true
-docker-compose -f compose.yml up --build --force-recreate
-

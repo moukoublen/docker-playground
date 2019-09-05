@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+dcmp="docker-compose "
+for f in "$@"
+do
+  dcmp+="-f $f "
+done
+
+${dcmp} down --volumes || true
+${dcmp} rm -f || true
+${dcmp} up --build --force-recreate
