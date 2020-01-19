@@ -1,22 +1,25 @@
 version: '3.7'
 services:
-  docker-zookeeper:
-    container_name: docker-zookeeper
+  d_zookeeper:
+    container_name: d_zookeeper
     image: zookeeper:3.5.5
     ports:
       - "2181:2181"
     restart: on-failure
 
-  docker-kafka:
-    container_name: docker-kafka
+  d_kafka:
+    container_name: d_kafka
     image: wurstmeister/kafka:2.12-2.4.0
     ports:
-      - "9092:9092"
+      - "9094:9094"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: docker-kafka
-      KAFKA_ADVERTISED_PORTL: 9092
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: d_zookeeper:2181
+      KAFKA_LISTENERS: INSIDE://d_kafka:9092,OUTSIDE://d_kafka:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://d_kafka:9092,OUTSIDE://localhost:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
-      KAFKA_CREATE_TOPICS: topicone:16:1,topictwo:16:1
-      KAFKA_ZOOKEEPER_CONNECT: docker-zookeeper:2181
-      KAFKA_BROKER_ID: 0
+      KAFKA_CREATE_TOPICS: topic1:16:1,topic2:16:1
+    links: [d_zookeeper]
     restart: on-failure
