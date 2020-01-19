@@ -7,15 +7,15 @@ do
 done
 
 echo ""
-echo "***********************************************"
-echo "Executing: $dcmp down --volumes"
-echo "***********************************************"
+echo ">"
+echo "> Executing: $dcmp down --volumes"
+echo "> "
 echo ""
 ${dcmp} down --volumes || true
 
 echo ""
-echo "***********************************************"
-echo "Executing: $dcmp up --build --force-recreate"
-echo "***********************************************"
+echo ">"
+echo "> Executing: $dcmp up --build --force-recreate"
+echo ">"
 echo ""
 ${dcmp} up --build --force-recreate
