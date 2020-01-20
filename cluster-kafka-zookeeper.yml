@@ -1,0 +1,61 @@
+version: '3.7'
+services:
+  zoo:
+    container_name: zoo
+    image: zookeeper:3.5.6
+    ports:
+      - "2181:2181"
+    restart: on-failure
+
+  kafka1:
+    container_name: kafka1
+    image: wurstmeister/kafka:2.12-2.4.0
+    ports:
+      - "19101:9094"
+    environment:
+      KAFKA_BROKER_ID: 101
+      KAFKA_ZOOKEEPER_CONNECT: zoo:2181
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka1:9092,OUTSIDE://localhost:19101
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+    links: [zoo]
+    restart: on-failure
+
+  kafka2:
+    container_name: kafka2
+    image: wurstmeister/kafka:2.12-2.4.0
+    ports:
+      - "19102:9094"
+    environment:
+      KAFKA_BROKER_ID: 102
+      KAFKA_ZOOKEEPER_CONNECT: zoo:2181
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka2:9092,OUTSIDE://localhost:19102
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+    links: [zoo]
+    restart: on-failure
+
+  kafka3:
+    container_name: kafka3
+    image: wurstmeister/kafka:2.12-2.4.0
+    ports:
+      - "19103:9094"
+    environment:
+      KAFKA_BROKER_ID: 103
+      KAFKA_ZOOKEEPER_CONNECT: zoo:2181
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka3:9092,OUTSIDE://localhost:19103
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+    links: [zoo]
+    restart: on-failure
+
+# kafka-topics --bootstrap-server localhost:19101 --create --topic topic1 --partitions 16 --replication-factor 3
+# kafka-topics --bootstrap-server localhost:19101 --describe --topic topic1
+# kafka-console-consumer --bootstrap-server localhost:19101 --topic topic1 --group thegroup
+# docker run --rm --network=docker-playground_default --interactive wurstmeister/kafka:2.12-2.4.0 /opt/kafka/bin/kafka-console-producer.sh --broker-list="kafka1:9092,kafka2:9092,kafka3:9092" --topic topic1
