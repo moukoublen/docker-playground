@@ -55,7 +55,14 @@ services:
     links: [zoo]
     restart: on-failure
 
-# kafka-topics --bootstrap-server localhost:19101 --create --topic topic1 --partitions 16 --replication-factor 3
-# kafka-topics --bootstrap-server localhost:19101 --describe --topic topic1
+  kafka_exec:
+    container_name: kafka_exec
+    image: wurstmeister/kafka:2.12-2.4.0
+    command: echo ""
+
 # kafka-console-consumer --bootstrap-server localhost:19101 --topic topic1 --group thegroup
-# docker run --rm --network=docker-playground_default --interactive wurstmeister/kafka:2.12-2.4.0 /opt/kafka/bin/kafka-console-producer.sh --broker-list="kafka1:9092,kafka2:9092,kafka3:9092" --topic topic1
+
+# docker-compose -f cluster-kafka-zookeeper.yml run --rm kafka_exec /opt/kafka/bin/kafka-console-producer.sh --broker-list="kafka1:9092,kafka2:9092,kafka3:9092" --topic topic1
+# docker-compose -f cluster-kafka-zookeeper.yml run --rm kafka_exec /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka1:9092 --create --topic topic1 --partitions 16 --replication-factor 3
+# docker-compose -f cluster-kafka-zookeeper.yml run --rm kafka_exec /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka1:9092 --list
+# docker-compose -f cluster-kafka-zookeeper.yml run --rm kafka_exec /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka1:9092 --describe topic1
