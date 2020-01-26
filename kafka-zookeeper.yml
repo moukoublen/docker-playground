@@ -21,5 +21,6 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
       KAFKA_CREATE_TOPICS: topic1:16:1,topic2:16:1
-    links: [d_zookeeper]
+    depends_on:
+      - d_zookeeper
     restart: on-failure
