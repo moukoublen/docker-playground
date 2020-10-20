@@ -2,14 +2,14 @@ version: '3.8'
 services:
   zoo:
     container_name: zoo
-    image: zookeeper:3.5.6
+    image: zookeeper:3.5.8
     ports:
       - "2181:2181"
     restart: on-failure
 
   kafka1:
     container_name: kafka1
-    image: wurstmeister/kafka:2.12-2.4.0
+    image: wurstmeister/kafka:2.12-2.5.0
     ports:
       - "19101:9094"
     environment:
@@ -26,7 +26,7 @@ services:
 
   kafka2:
     container_name: kafka2
-    image: wurstmeister/kafka:2.12-2.4.0
+    image: wurstmeister/kafka:2.12-2.5.0
     ports:
       - "19102:9094"
     environment:
@@ -43,7 +43,7 @@ services:
 
   kafka3:
     container_name: kafka3
-    image: wurstmeister/kafka:2.12-2.4.0
+    image: wurstmeister/kafka:2.12-2.5.0
     ports:
       - "19103:9094"
     environment:
@@ -60,7 +60,7 @@ services:
 
   kafka_exec:
     container_name: kafka_exec
-    image: wurstmeister/kafka:2.12-2.4.0
+    image: wurstmeister/kafka:2.12-2.5.0
     command: echo ""
 
 # kafka-console-consumer --bootstrap-server localhost:19101 --topic topic1 --group thegroup

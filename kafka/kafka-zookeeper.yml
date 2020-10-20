@@ -2,14 +2,14 @@ version: '3.8'
 services:
   d_zookeeper:
     container_name: d_zookeeper
-    image: zookeeper:3.5.5
+    image: zookeeper:3.5.8
     ports:
       - "2181:2181"
     restart: on-failure
 
   d_kafka:
     container_name: d_kafka
-    image: wurstmeister/kafka:2.12-2.4.0
+    image: wurstmeister/kafka:2.12-2.5.0
     ports:
       - "9094:9094"
     environment:
