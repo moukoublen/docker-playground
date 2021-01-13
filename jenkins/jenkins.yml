@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  jenkins:
+    image: moukoublen/jenkins:latest
+    container_name: jenkins
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
+      - target: 50000
+        published: 50000
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: bind
+        source: ./jenkins/jenkins_home
+        target: /var/jenkins_home
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: ./jenkins/secrets
+        target: /secrets
+        read_only: true
